@@ -96,6 +96,7 @@ u16 gl_color_cheat_count  = RGB(00,31,00);
 u16 gl_color_cheat_black  = RGB(00,00,00);
 u16 gl_color_NORFULL      = RGB(31,00,00);
 u16 gl_color_btn_clean    = RGB(00,00,31);
+u16 gl_color_patch_note   = RGB(31,18,18);
 //******************************************************************************
 void delay(u32 R0)
 {
@@ -139,7 +140,10 @@ void Show_help_window()
 		
 	DrawHZText12("L+START:",0,3,65, gl_color_selected,1);
 		DrawHZText12(gl_LSTART_help,0,52,65, gl_color_text,1);	
-		
+
+	DrawHZText12("Patched by veikkos (v1)",0,3,130, gl_color_patch_note, 1);
+	DrawHZText12(" - Goomba 2019-05-04",0,3,145, gl_color_patch_note, 1);
+
 	DrawHZText12(gl_online_manual,0,240-70-7,77, gl_color_text,1);
 	while(1)
 	{
