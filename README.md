@@ -1,6 +1,14 @@
-#EZ-FLASH OMEGA Kernel
+# EZ-FLASH OMEGA Kernel
 
-### How to build 
+## Patched by veikkos
+
+* Updated to [Goomba GB/CGB emulator](http://www.dwedit.org/gba/goombacolor.php) version 2019-05-04
+  * Applied [source patch](https://github.com/veikkos/omega-kernel/tree/master/goomba-patch) to Goomba to make it Omega compatible
+  * Removed binary patching by kernel which is no longer needed
+
+Use with your own risk!
+
+## How to build
 
     1.We use devkitARM_r47, you can use the current version or newer.
     2.Set the following environment variables in system, or modify the value in build.bat, based on your installation path
