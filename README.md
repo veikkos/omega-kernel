@@ -5,6 +5,9 @@
 * Updated to [Goomba GB/CGB emulator](http://www.dwedit.org/gba/goombacolor.php) version 2019-05-04
   * Applied [source patch](https://github.com/veikkos/omega-kernel/tree/master/goomba-patch) to Goomba to make it Omega compatible
   * Removed binary patching by kernel which is no longer needed
+* Quick start
+  * Keep L pressed when booting to start first game in NOR
+  * Keep L+A pressed when booting to start last played SD-card game
 
 Use with your own risk!
 

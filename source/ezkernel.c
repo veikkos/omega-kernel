@@ -141,8 +141,9 @@ void Show_help_window()
 	DrawHZText12("L+START:",0,3,65, gl_color_selected,1);
 		DrawHZText12(gl_LSTART_help,0,52,65, gl_color_text,1);	
 
-	DrawHZText12("Patched by veikkos (v1)",0,3,130, gl_color_patch_note, 1);
-	DrawHZText12(" - Goomba 2019-05-04",0,3,145, gl_color_patch_note, 1);
+	DrawHZText12("Patched by veikkos (v1+)",0,3,115, gl_color_patch_note, 1);
+	DrawHZText12(" - Goomba 2019-05-04",0,3,130, gl_color_patch_note, 1);
+	DrawHZText12(" - Quick start (L or L+A)",0,3,145, gl_color_patch_note, 1);
 
 	DrawHZText12(gl_online_manual,0,240-70-7,77, gl_color_text,1);
 	while(1)
@@ -1574,15 +1575,18 @@ int main(void) {
 
 	u32 res;
 	u32 game_folder_total;
-	u32 file_select;
-	u32 show_offset;
+	u32 file_select=0;
+	u32 show_offset=0;
 	u32 updata;
 	u32 continue_MENU;
 	PAGE_NUM page_num=SD_list;
 	u32 page_mode;
 	u32 shift;
 	u32 short_filename=0;
-	
+        u8 Save_num=0; //save type: auto
+        u8 old_Save_num=0;
+        u32 MENU_line=0;
+        u32 is_EMU=0;
 	u8 error_num;
 
 	gl_currentpage = 0x8002 ;//kernel mode
@@ -1620,6 +1624,7 @@ int main(void) {
 	VBlankIntrWait();	
 
 	f_chdir("/");
+        TCHAR *pfilename;
 	TCHAR currentpath[MAX_path_len];
 	memset(currentpath,00,MAX_path_len);
 	memset(currentpath_temp,0x00,MAX_path_len);
@@ -1637,6 +1642,55 @@ int main(void) {
 		memset(pNorFS,00,sizeof(FM_NOR_FS)*MAX_NOR);
 		Save_NOR_info(pNorFS,sizeof(FM_NOR_FS)*MAX_NOR);
 	}
+
+        VBlankIntrWait();
+        scanKeys();
+        const int isLPressed = (keysDownRepeat() & KEY_L) || (keysDown() & KEY_L);
+        const int isAPressed = (keysDownRepeat() & KEY_A) || (keysDown() & KEY_A);
+        if(isLPressed)
+          {
+            if (isAPressed)
+              {
+                // L+A pressed -> load last played game from SD card if user has
+                // previously started at least one game
+                if (get_count())
+                  {
+                    u32 save_num = 0;
+
+                    res = f_open(&gfile, p_recently_play[save_num], FA_OPEN_EXISTING);
+                    if(res == FR_OK)
+                      {
+                        f_close(&gfile);
+
+                        page_num=SD_list;
+
+                        u8 *p=strrchr(p_recently_play[save_num], '/');
+                        memset(currentpath, 0, MAX_path_len);
+                        strncpy(currentpath, p_recently_play[save_num], p-p_recently_play[save_num]);
+                        if(currentpath[0]==0)
+                          {
+                            currentpath[0] = '/';
+                          }
+                        memset(current_filename, 0, 200);
+                        strncpy(current_filename, p+1, 100); // remove directory path
+                        pfilename = current_filename;
+                        is_EMU=Check_file_type(pfilename);
+                        if (!is_EMU)
+                          {
+                            old_Save_num = Check_mde_file(pfilename);
+                            Save_num = old_Save_num;
+                          }
+                        goto start_game;
+                      }
+                  }
+              }
+            else if(game_total_NOR)
+              {
+                // L pressed -> load first NOR game
+                page_num = NOR_list;
+                goto start_game;
+              }
+          }
 
 refind_file:
 	
@@ -2035,7 +2089,6 @@ re_showfile:
 
 		continue_MENU = 0;
 		//press A, show boot MENU;
-		TCHAR *pfilename;
 		
 		if(play_re==0xBB){
 			if(page_num==SD_list){
@@ -2058,13 +2111,13 @@ re_showfile:
 			pfilename = current_filename;						
 		}		
 
-		u8 Save_num=0;//save tpye: auto
-		u8 old_Save_num=0;		
+                Save_num=0; // save type: auto
+                old_Save_num=0;
 		u32 havecht;	
-		u32 MENU_line=0   ;
+		MENU_line=0;
 		u32 re_menu=1;
 		u32 MENU_max;		
-		u32 is_EMU=Check_file_type(pfilename);
+		is_EMU=Check_file_type(pfilename);
 		if(is_EMU == 0xff) 
 		{
 			goto re_showfile;
@@ -2203,6 +2256,8 @@ re_showfile:
 			}
 			ShowTime(page_num,page_mode);
 		}	//3
+
+ start_game:
 
 		Clear(0, 0, 240, 160, gl_color_cheat_black, 1);
 		DrawHZText12(gl_Loading,0,(240-strlen(gl_Loading)*6)/2,74, gl_color_text,1);
