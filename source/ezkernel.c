@@ -141,7 +141,7 @@ void Show_help_window()
 	DrawHZText12("L+START:",0,3,65, gl_color_selected,1);
 		DrawHZText12(gl_LSTART_help,0,52,65, gl_color_text,1);	
 
-	DrawHZText12("Patched by veikkos (v1+)",0,3,115, gl_color_patch_note, 1);
+	DrawHZText12("Patched by veikkos (v2)",0,3,115, gl_color_patch_note, 1);
 	DrawHZText12(" - Goomba 2019-05-04",0,3,130, gl_color_patch_note, 1);
 	DrawHZText12(" - Quick start (L or L+A)",0,3,145, gl_color_patch_note, 1);
 
@@ -1686,8 +1686,9 @@ int main(void) {
               }
             else if(game_total_NOR)
               {
-                // L pressed -> load first NOR game
+                // L pressed -> load last game in NOR
                 page_num = NOR_list;
+                file_select = game_total_NOR - 1;
                 goto start_game;
               }
           }
