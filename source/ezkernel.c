@@ -1588,6 +1588,7 @@ int main(void) {
         u32 MENU_line=0;
         u32 is_EMU=0;
 	u8 error_num;
+        u32 key_L=0;
 
 	gl_currentpage = 0x8002 ;//kernel mode
 
@@ -1765,7 +1766,7 @@ re_showfile:
 	shift =0;
 	page_mode=0;
   updata=1;
-  u32 key_L=0;
+  key_L=0;
 	setRepeat(5,1);
 	
 	if(page_num==SD_list)
