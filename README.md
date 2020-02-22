@@ -8,6 +8,14 @@
 * Quick start
   * Keep L pressed when booting to start last game in NOR
   * Keep L+A pressed when booting to start last played SD-card game
+* Automated backup of game saves
+  * Save file is backed up automatically when starting a game
+  * Backups are stored in `/SAVER-BACKUP` directory
+  * 5 last save files are stored
+    * `.sav0` is most recent, `.sav4` is oldest
+  * Restore is manual process
+    * Copy `/SAVER-BACKUP` directory to a computer to avoid overwriting your backups
+    * Copy selected backup file to `/SAVER` folder, remove number from the end
 
 Use with your own risk!
 
