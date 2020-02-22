@@ -1562,6 +1562,75 @@ void Show_error_num(u8 error_num)
 	wait_btn();
 }
 //---------------------------------------------------------------------------------
+u32 Copy_file(const char* src, const char* dst)
+{
+  u32 ret = 0;
+  UINT read_ret;
+  UINT write_ret;
+  u32 filesize;
+  u32 res;
+  u32 blocknum;
+  FIL dst_file;
+
+  res = f_open(&gfile, src, FA_READ);
+  if(res == FR_OK)
+    {
+      res = f_open(&dst_file, dst, FA_WRITE | FA_CREATE_ALWAYS);
+      if(res == FR_OK)
+        {
+          filesize = f_size(&gfile);
+          f_lseek(&gfile, 0x0000);
+
+          for(blocknum=0x0000; blocknum<filesize; blocknum+=0x20000)
+            {
+              f_read(&gfile, pReadCache, 0x20000, &read_ret);
+              f_write(&dst_file, pReadCache, read_ret, &write_ret);
+              if (write_ret != read_ret)
+                break;
+              else
+                ret = 1;
+            }
+
+          f_close(&dst_file);
+
+          if (!ret) f_unlink(dst);
+        }
+      f_close(&gfile);
+    }
+
+  return ret;
+}
+//---------------------------------------------------------------------------------
+void Backup_savefile(const char* filename)
+{
+  const char* backup_dir = "/SAVER-BACKUP";
+  u8 temp_filename[MAX_path_len] = {0};
+  u8 temp_filename_dst[MAX_path_len] = {0};
+  u32 temp_filename_length;
+
+  strncpy(temp_filename, backup_dir, sizeof(temp_filename) - 2);
+  temp_filename_length = strlen(temp_filename);
+  temp_filename[temp_filename_length++] = '/';
+
+  strncpy(temp_filename + temp_filename_length, filename, sizeof(temp_filename) - temp_filename_length - 2);
+  temp_filename_length = strlen(temp_filename);
+
+  f_mkdir(backup_dir);
+  strncpy(temp_filename_dst, temp_filename, sizeof(temp_filename_dst));
+
+  for(s8 i=3; i>=0; --i)
+    {
+      temp_filename[temp_filename_length] = '0' + i;
+      temp_filename_dst[temp_filename_length] = '0' + i + 1;
+
+      f_unlink(temp_filename_dst);
+      f_rename(temp_filename, temp_filename_dst);
+    }
+
+  temp_filename[temp_filename_length] = '0';
+  Copy_file(filename, temp_filename);
+}
+//---------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------
 // Program entry point
@@ -2402,7 +2471,9 @@ re_showfile:
 		if(res == FR_OK)//have a old save file
 		{
 			savefilesize = f_size(&gfile);		
-			f_close(&gfile);				
+			f_close(&gfile);
+
+                        Backup_savefile(savfilename);
 		}					
 		else //make a new one
 		{	
