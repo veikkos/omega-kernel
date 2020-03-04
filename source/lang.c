@@ -77,6 +77,9 @@ char* gl_error_6;
 char**  gl_rom_menu;
 char**  gl_nor_op;
 
+char* gl_rotating_backups;
+char* gl_saving_backup;
+char* gl_backup_done;
 
 //中文
 const char zh_init_error[]="TF卡初始化失败";
@@ -165,7 +168,9 @@ const char *zh_nor_op[3]={
 	"全部格式化",
 };
 
-
+const char zh_rotating_backups[]="备份历史存档";
+const char zh_saving_backup[]="备份当前存档";
+const char zh_backup_done[]="备份完成";
 
 //英文
 const char en_init_error[]="Micro SD card initial error";
@@ -253,6 +258,10 @@ const char *en_nor_op[3]={
 	"FORMAT ALL",
 };	
 
+const char en_rotating_backups[]="ROTATING BACKUPS";
+const char en_saving_backup[]="SAVING BACKUP";
+const char en_backup_done[]="BACKUP DONE";
+
 //---------------------------------------------------------------------------------
 void LoadChinese(void)
 {
@@ -332,6 +341,9 @@ void LoadChinese(void)
 	gl_rom_menu = (char**)zh_rom_menu;
 	gl_nor_op = (char**)zh_nor_op;
 
+        gl_rotating_backups = (char*)zh_rotating_backups;
+        gl_saving_backup = (char*)zh_saving_backup;
+        gl_backup_done = (char*)zh_backup_done;
 }
 //---------------------------------------------------------------------------------
 void LoadEnglish(void)
@@ -409,4 +421,8 @@ void LoadEnglish(void)
 	//
 	gl_rom_menu = (char**)en_rom_menu;
 	gl_nor_op = (char**)en_nor_op;
+
+        gl_rotating_backups = (char*)en_rotating_backups;
+        gl_saving_backup = (char*)en_saving_backup;
+        gl_backup_done = (char*)en_backup_done;
 }

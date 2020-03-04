@@ -77,6 +77,10 @@ extern char* gl_error_6;
 extern char**  	gl_rom_menu;
 extern char**   gl_nor_op;
 
+extern char* gl_rotating_backups;
+extern char* gl_saving_backup;
+extern char* gl_backup_done;
+
 void LoadEnglish(void);
 void LoadChinese(void);
 

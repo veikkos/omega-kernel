@@ -1624,7 +1624,7 @@ void Backup_savefile(const char* filename)
   f_mkdir(backup_dir);
   strncpy(temp_filename_dst, temp_filename, sizeof(temp_filename_dst));
 
-  ShowbootProgress("ROTATING BACKUPS");
+  ShowbootProgress(gl_rotating_backups);
 
   for(s8 i=3; i>=0; --i)
     {
@@ -1635,13 +1635,13 @@ void Backup_savefile(const char* filename)
       f_rename(temp_filename, temp_filename_dst);
     }
 
-  ShowbootProgress("SAVING BACKUP");
+  ShowbootProgress(gl_saving_backup);
 
   temp_filename[temp_filename_length] = '0';
 
   if (Copy_file(filename, temp_filename))
     {
-      ShowbootProgress("BACKUP DONE");
+      ShowbootProgress(gl_backup_done);
     }
 }
 //---------------------------------------------------------------------------------
