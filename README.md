@@ -16,6 +16,7 @@
   * Restore is manual process
     * Copy `/SAVER-BACKUP` directory to a computer to avoid overwriting your backups
     * Copy selected backup file to `/SAVER` folder, remove number from the end
+  * Progress status localized in EN and ZH
 
 Use with your own risk!
 
