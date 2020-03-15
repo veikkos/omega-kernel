@@ -18,19 +18,6 @@ index e15248d..dfa0164 100644
  	return 0;
 +#endif
  }
-diff --git a/src/gbz80.s b/src/gbz80.s
-index 4069a40..0fc7787 100644
---- a/src/gbz80.s
-+++ b/src/gbz80.s
-@@ -2831,7 +2831,7 @@ _gbamode:
- request_gba_mode:
- 	.byte 0 @gbamode
- request_gb_type:
--	.byte 2 @request_gb_type_
-+	.byte 0 @request_gb_type_
- novblankwait:
- 	.byte 0 @novblankwait_
- 
 diff --git a/src/sgb.s b/src/sgb.s
 index f904eb3..40fffda 100644
 --- a/src/sgb.s
