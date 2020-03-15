@@ -1,0 +1,46 @@
+diff --git a/src/gbcgamedetect.c b/src/gbcgamedetect.c
+index e15248d..dfa0164 100644
+--- a/src/gbcgamedetect.c
++++ b/src/gbcgamedetect.c
+@@ -149,6 +149,9 @@ static const int FIRST_GBC_PALETTE = 49;
+ 
+ int GetGbcPaletteNumber(u8 *rom)
+ {
++	// Always "Grayscale"
++	return 1;
++#if 0
+ 	int entryCount = ARRSIZE(gameHashTable);
+ 	int nameSum = 0;
+ 	for (int i = 0; i < 16; i++)
+@@ -175,4 +178,5 @@ int GetGbcPaletteNumber(u8 *rom)
+ 		}
+ 	}
+ 	return 0;
++#endif
+ }
+diff --git a/src/gbz80.s b/src/gbz80.s
+index 4069a40..0fc7787 100644
+--- a/src/gbz80.s
++++ b/src/gbz80.s
+@@ -2831,7 +2831,7 @@ _gbamode:
+ request_gba_mode:
+ 	.byte 0 @gbamode
+ request_gb_type:
+-	.byte 2 @request_gb_type_
++	.byte 0 @request_gb_type_
+ novblankwait:
+ 	.byte 0 @novblankwait_
+ 
+diff --git a/src/sgb.s b/src/sgb.s
+index f904eb3..40fffda 100644
+--- a/src/sgb.s
++++ b/src/sgb.s
+@@ -28,7 +28,7 @@ g_sgb_mask:	.byte 0	@sgb_mask
+ g_update_border_palette:
+ 	.byte 0   @update_border_palette
+ auto_border:
+-	.byte 1	@autoborder
++	.byte 0	@autoborder
+ _autoborderstate:
+ 	.byte 0	@autoborderstate
+ 	.byte 0	@borderpartsadded
