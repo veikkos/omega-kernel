@@ -141,7 +141,7 @@ void Show_help_window()
 	DrawHZText12("L+START:",0,3,65, gl_color_selected,1);
 		DrawHZText12(gl_LSTART_help,0,52,65, gl_color_text,1);	
 
-	DrawHZText12("Patched by veikkos (v4)",0,3,100, gl_color_patch_note, 1);
+	DrawHZText12("Patched by veikkos (v4-qm1)",0,3,100, gl_color_patch_note, 1);
 	DrawHZText12(" - Goomba 2019-05-04",0,3,115, gl_color_patch_note, 1);
 	DrawHZText12(" - Quick start (L or L+A)",0,3,130, gl_color_patch_note, 1);
 	DrawHZText12(" - Save backup",0,3,145, gl_color_patch_note, 1);
@@ -2212,6 +2212,7 @@ re_showfile:
 			havecht = 0;
 			Save_num = 0xF;
 			MENU_max = 0;
+                        goto start_game;
 		}
 		else{
 			res=f_chdir(currentpath);//can open  re list game
