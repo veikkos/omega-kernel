@@ -1,0 +1,77 @@
+diff --git a/src/cart.s b/src/cart.s
+index 8d2c3cc..9f6a6fc 100644
+--- a/src/cart.s
++++ b/src/cart.s
+@@ -197,6 +197,7 @@ loadcart: @called from C:  r0=rom number, r1=emuflags
+ 	@1 = perfer SGB over GBC
+ 	@2 = perfer GBC over SGB
+ 	@3 = Weird GBC+SGB
++	@4 = perfer GBC over GB
+ 	
+ 	@---
+ 	@if supports SGB+CGB, autoborder==1, and autoborderstate==0,
+@@ -235,6 +236,9 @@ loadcart: @called from C:  r0=rom number, r1=emuflags
+         cmp r0,#2
+         cmpeq r4,#1
+         moveq r5,#0 @disable SGB if GBC supported
++
++        cmp r0,#4
++        moveq r5,#0 @disable SGB
+ 1:
+         strb_ r4,gbcmode
+         strb_ r5,sgbmode
+diff --git a/src/gbcgamedetect.c b/src/gbcgamedetect.c
+index e15248d..dfa0164 100644
+--- a/src/gbcgamedetect.c
++++ b/src/gbcgamedetect.c
+@@ -149,6 +149,9 @@ static const int FIRST_GBC_PALETTE = 49;
+ 
+ int GetGbcPaletteNumber(u8 *rom)
+ {
++	// Always "Grayscale"
++	return 1;
++#if 0
+ 	int entryCount = ARRSIZE(gameHashTable);
+ 	int nameSum = 0;
+ 	for (int i = 0; i < 16; i++)
+@@ -175,4 +178,5 @@ int GetGbcPaletteNumber(u8 *rom)
+ 		}
+ 	}
+ 	return 0;
++#endif
+ }
+diff --git a/src/gbz80.s b/src/gbz80.s
+index 4069a40..19b0671 100644
+--- a/src/gbz80.s
++++ b/src/gbz80.s
+@@ -2831,7 +2831,7 @@ _gbamode:
+ request_gba_mode:
+ 	.byte 0 @gbamode
+ request_gb_type:
+-	.byte 2 @request_gb_type_
++	.byte 4 @request_gb_type_
+ novblankwait:
+ 	.byte 0 @novblankwait_
+ 
+diff --git a/src/ui.c b/src/ui.c
+index 7a7924e..01a6783 100644
+--- a/src/ui.c
++++ b/src/ui.c
+@@ -422,7 +422,7 @@ char *const paltxt[]=
+ "Wario Land II",
+ "Pac-in-Time"
+ };
+-char *const gbtxt[]={"GB","Prefer SGB over GBC","Prefer GBC over SGB","GBC+SGB"};
++char *const gbtxt[]={"GB","Prefer SGB over GBC","Prefer GBC over SGB","GBC+SGB","Prefer GBC over GB"};
+ char *const clocktxt[]={"Full","Half speed"};
+ char *const lcdhacktxt[]={"OFF","Low","Medium","High"};
+ //char *const dmamodetxt[]={"Buffered", "Direct to VRAM", "WayForward"};
+@@ -779,7 +779,7 @@ void chpalette()
+ //}
+ void gbtype()
+ {
+-	request_gb_type=(request_gb_type+1) % 4;
++	request_gb_type=(request_gb_type+1) % 5;
+ }
+ void gbatype()
+ {
