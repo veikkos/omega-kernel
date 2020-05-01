@@ -2,7 +2,7 @@
 
 [Source code at GitHub](https://github.com/veikkos/omega-kernel)
 
-## Patched by veikkos
+## Patched by veikkos (v5)
 
 * Updated to [Goomba GB/GBC emulator](http://www.dwedit.org/gba/goombacolor.php) version 2019-05-04
     * Applied [source patch](https://github.com/veikkos/omega-kernel/blob/master/goomba-patch/goomba_ezflash_omega.patch) to Goomba to make it Omega compatible
