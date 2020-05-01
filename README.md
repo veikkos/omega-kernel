@@ -7,13 +7,14 @@
 * Updated to [Goomba GB/GBC emulator](http://www.dwedit.org/gba/goombacolor.php) version 2019-05-04
     * Applied [source patch](https://github.com/veikkos/omega-kernel/blob/master/goomba-patch/goomba_ezflash_omega.patch) to Goomba to make it Omega compatible
     * Removed binary patching by kernel which is no longer needed
-* Goomba changes
-    * No SGB borders by default [(patch link)](https://github.com/veikkos/omega-kernel/blob/master/goomba-patch/goomba_gbc_mode.patch)
+* Goomba changes [(issue link)](https://github.com/veikkos/omega-kernel/issues/2) [(patch link)](https://github.com/veikkos/omega-kernel/blob/master/goomba-patch/goomba_gbc_mode.patch)
+    * No SGB borders by default
         * New "Prefer GBC over GB" default mode instead of "Prefer GBC over SGB"
     * Original GB games use black and white "Grayscale" palette instead of colorized "Wario Blast"
 * Quick start
     * Keep L pressed when booting to start last game in NOR
     * Keep L+A pressed when booting to start last played SD-card game
+* Start emulated games directly without single-item game menu [(link)](https://github.com/veikkos/omega-kernel/issues/4)
 * Automated backup of game saves
     * Save file is backed up automatically when starting a game
     * Backups are stored in `/SAVER-BACKUP` directory
