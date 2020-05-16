@@ -58,6 +58,16 @@ LIBS	:= -lgba
 LIBDIRS	:=	$(LIBGBA)
 
 #---------------------------------------------------------------------------------
+# theme selection
+#---------------------------------------------------------------------------------
+ifdef RED_THEME
+	INCLUDES += source/images-red
+	CFLAGS += -D RED_THEME
+else
+	INCLUDES += source/images
+endif
+
+#---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
 # rules for different file extensions
 #---------------------------------------------------------------------------------
