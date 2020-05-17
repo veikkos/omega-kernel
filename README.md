@@ -34,5 +34,12 @@ Use with your own risk!
  
         PATH,DEVKITARM,DEVKITPRO,LIBGBA
 
-    3.Double click on build.bat under Windows. If it goes well, you will get ezkernel.gba
-    4.Rename the ezkernel.gba to ezkernel.bin, that is the omega kernel upgrade file
+    3.Double click on build.bat under Windows. If it goes well, you	will get ezkernel.bin which is the omega kernel upgrade file
+
+### Dark red UI
+
+In addition to original UI, firmware can also be built with nice dark red UI. Credits to Nona_Elexis.
+
+Change `make` to `make RED_THEME=1` in build.bat or command line.
+
+Run `make clean` before changing UI type!
