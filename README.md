@@ -38,7 +38,7 @@ Use with your own risk!
 
 ### Dark red UI
 
-In addition to original UI, firmware can also be built with nice dark red UI. Credits to Nona_Elexis.
+In addition to original UI, firmware can also be built with nice dark red UI. Credits to Nona_Elexis for the graphics.
 
 Change `make` to `make RED_THEME=1` in build.bat or command line.
 
