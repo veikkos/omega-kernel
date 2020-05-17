@@ -1,0 +1,15 @@
+{
+  "name": "font-tool",
+  "version": "1.0.0",
+  "description": "BMP font to hex conversion tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "veikkos",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bmp-js": "^0.1.0"
+  }
+}
