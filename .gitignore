@@ -1,5 +1,10 @@
 build/
 ezkernel.bin
-ezkernel.elf
-ezkernel.gba
+*.elf
+*.gba
 copy.bat
+*~
+*.bak
+*.zip
+*.sav
+node_modules
