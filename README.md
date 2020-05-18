@@ -34,7 +34,7 @@ Use with your own risk!
  
         PATH,DEVKITARM,DEVKITPRO,LIBGBA
 
-    3.Double click on build.bat under Windows. If it goes well, you	will get ezkernel.bin which is the omega kernel upgrade file
+    3.Double click on build.bat under Windows. If it goes well, you will get ezkernel.bin which is the omega kernel upgrade file
 
 ### Dark red UI
 
