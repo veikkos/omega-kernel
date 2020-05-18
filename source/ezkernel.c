@@ -33,6 +33,9 @@
 #include "nor_icon.h"
 #include "icon_FC.h"
 #include "icon_GB.h"
+#ifdef RED_THEME
+#include "icon_GBC.h"
+#endif
 #include "NOTFOUND.h"
 
 #include "Chinese_manual.h"
@@ -297,7 +300,11 @@ void Show_ICON_filename(u32 show_offset,u32 file_select,u32 haveThumbnail)
 		}	
 		else if(!strcasecmp(&(pfilename[strlen8-3]), "gbc"))
 		{
+#ifdef RED_THEME
+			icon = (u16*)(gImage_icon_GBC);
+#else
 			icon = (u16*)(gImage_icon_GB);
+#endif
 		}
 		else if(!strcasecmp(&(pfilename[strlen8-2]), "gb"))
 		{
