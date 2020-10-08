@@ -1,5 +1,8 @@
 # EZ-FLASH OMEGA Kernel
 
+[![Downloads](https://img.shields.io/github/downloads/veikkos/omega-kernel/total.svg)](https://github.com/veikkos/omega-kernel/releases)
+[![Latest release](http://img.shields.io/github/release/veikkos/omega-kernel.svg)](https://github.com/veikkos/omega-kernel/releases/latest)
+
 [Source code at GitHub](https://github.com/veikkos/omega-kernel)
 
 ## Patched by veikkos (v5)
